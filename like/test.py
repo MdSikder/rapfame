@@ -23,26 +23,64 @@ desired_caps = {
 driver = webdriver.Remote('http://localhost:4723/wd/hub', desired_caps)
 time.sleep(15)
 
-
 try:
-    # Perform actions in the app to bring focus to an element, if needed
+    # Perform actions to reach the initial state where "Tab" key needs to be pressed
+    # (e.g., focus on an input field or a specific UI element)
 
-    # Simulate pressing the "Tab" key on the keyboard
-    driver.press_keycode(61)
-
-    # Wait for some time to observe the effect (you can adjust this time as needed)
-    time.sleep(7)
-
+    # Replace "target_element_id" with the actual ID or other locator of the target element
+    target_element_locator = (MobileBy.ID, "com.komspek.battleme:id/ivAvatar")
 
     driver.press_keycode(61)
+    time.sleep(3)
+    # Loop until the target element becomes visible
+    max_attempts = 10  # Adjust the maximum number of attempts as needed
+    attempts = 0
+    while attempts < max_attempts:
+        # Press the "Tab" key on the keyboard
+        driver.press_keycode(61)
 
-    # Wait for some time to observe the effect (you can adjust this time as needed)
-    time.sleep(7)
+        # Wait for a short period to allow the element to become visible
+        time.sleep(5)  # Adjust the time as needed
 
-    # Perform further actions after pressing the "Tab" key
+        # Check if the target element is now visible
+        target_element = driver.find_elements(*target_element_locator)
+        if target_element:
+            # Element found, exit the loop
+            break
+        # Increment the attempts counter
+        attempts += 1
+
+    # if not target_element:
+    #     print("Target element not found after multiple attempts.")
+
+    # Perform further actions with the visible target element
 
 except Exception as e:
     print(f"An error occurred: {e}")
+
+finally:
+    # Close the driver
+    driver.quit()
+
+# try:
+#     # Perform actions in the app to bring focus to an element, if needed
+#
+#     # Simulate pressing the "Tab" key on the keyboard
+#     driver.press_keycode(61)
+#
+#     # Wait for some time to observe the effect (you can adjust this time as needed)
+#     time.sleep(7)
+#
+#
+#     driver.press_keycode(61)
+#
+#     # Wait for some time to observe the effect (you can adjust this time as needed)
+#     time.sleep(7)
+#
+#     # Perform further actions after pressing the "Tab" key
+#
+# except Exception as e:
+#     print(f"An error occurred: {e}")
 
 # driver.swipe(470, 1468, 800, 300, )
 # time.sleep(5)
@@ -73,7 +111,6 @@ except Exception as e:
 #     print("NoSuchElementException error :\n", e, "\n")
 
 # time.sleep(5)
-
 
 
 # try:
@@ -176,8 +213,6 @@ except Exception as e:
 # Scroll to the next post
 # action = TouchAction(driver)
 # action.press(x=500, y=1600).move_to(x=500, y=200).release().perform()
-
-
 
 
 driver.quit()
