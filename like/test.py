@@ -1,6 +1,7 @@
 import time
 
 from appium import webdriver
+from appium.webdriver.common.mobileby import MobileBy
 from appium.webdriver.common.touch_action import TouchAction
 from selenium.common import NoSuchElementException
 from selenium.webdriver.common.by import By
@@ -23,8 +24,25 @@ driver = webdriver.Remote('http://localhost:4723/wd/hub', desired_caps)
 time.sleep(15)
 
 
+try:
+    # Perform actions in the app to bring focus to an element, if needed
+
+    # Simulate pressing the "Tab" key on the keyboard
+    driver.press_keycode(61)
+
+    # Wait for some time to observe the effect (you can adjust this time as needed)
+    time.sleep(7)
 
 
+    driver.press_keycode(61)
+
+    # Wait for some time to observe the effect (you can adjust this time as needed)
+    time.sleep(7)
+
+    # Perform further actions after pressing the "Tab" key
+
+except Exception as e:
+    print(f"An error occurred: {e}")
 
 # driver.swipe(470, 1468, 800, 300, )
 # time.sleep(5)
@@ -36,23 +54,27 @@ time.sleep(15)
 
 
 # try:
-#     elements = driver.find_element(By.ID, "com.komspek.battleme:id/ivIcon")
+#     elements = driver.find_elements(By.ID, "com.komspek.battleme:id/ivPlay1")
 #     # driver.find_elements(By.ID, "com.komspek.battleme:id/ivIcon").c()
-#     elements.click()
 #     # Check if the list is not empty and if the desired index exists
-#     # if len(elements) >= 2:
-#     #     second_element = elements[0]
-#     #     # Now you can perform actions on the second_element
-#     #     second_element.click()
-#     #     time.sleep(5)
-#     # else:
-#     #     # Handle the case when there is no second element
-#     #     print("There is no second element.")
+#     if len(elements) >= 2:
+#         second_element = elements[0]
+#         third_elemnt = elements[1]
+#         scrollable_view = second_element
+#         target_element = third_elemnt
 #
+#         driver.scroll(scrollable_view, target_element)
+#         time.sleep(5)
+#     else:
+#         # Handle the case when there is no second element
+#         print("There is no second element.")
+
 # except NoSuchElementException as e:
 #     print("NoSuchElementException error :\n", e, "\n")
 
 # time.sleep(5)
+
+
 
 # try:
 #
@@ -65,19 +87,19 @@ time.sleep(15)
 # except NoSuchElementException as e:
 #     print("NoSuchElementException error :\n", e, "\n")
 #
-try:
-    recent_header = WebDriverWait(driver, 20).until(
-        EC.presence_of_element_located(
-            (By.XPATH, '//android.widget.LinearLayout[@content-desc="Recent"]/android.widget.TextView'))
-    )
-    recent_header.click()
-    time.sleep(10)
-except NoSuchElementException as e:
-    print("NoSuchElementException error :\n", e, "\n")
+# try:
+#     recent_header = WebDriverWait(driver, 20).until(
+#         EC.presence_of_element_located(
+#             (By.XPATH, '//android.widget.LinearLayout[@content-desc="Recent"]/android.widget.TextView'))
+#     )
+#     recent_header.click()
+#     time.sleep(5)
+# except NoSuchElementException as e:
+#     print("NoSuchElementException error :\n", e, "\n")
 
-driver.execute_script("document.querySelector('.sidenav-content').scrollTop = 150")
-time.sleep(6)
-
+# action = TouchAction(driver)
+# action.press(x=22, y=165).move_to(x=22, y=800).release().perform()
+# time.sleep(5)
 
 # try:
 #     play = WebDriverWait(driver, 20).until(
@@ -109,6 +131,11 @@ time.sleep(6)
 # except NoSuchElementException as e:
 #     print("NoSuchElementException error :\n", e, "\n")
 # time.sleep(5)
+#
+# action = TouchAction(driver)
+# action.press(x=354, y=650).move_to(x=320, y=820).release().perform()
+# time.sleep(5)
+
 # #
 # # Scroll down to the next post
 # action = TouchAction(driver)
@@ -149,5 +176,8 @@ time.sleep(6)
 # Scroll to the next post
 # action = TouchAction(driver)
 # action.press(x=500, y=1600).move_to(x=500, y=200).release().perform()
+
+
+
 
 driver.quit()
